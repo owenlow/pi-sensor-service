@@ -1,4 +1,4 @@
-const nodeimu = require('./nodeimu');
+const nodeimu = require('../nodeimu');
 const PiCamera = require('pi-camera');
 
 const IMU = new nodeimu.IMU();
