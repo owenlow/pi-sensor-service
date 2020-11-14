@@ -1,7 +1,14 @@
-const landingHandler = require('./landing');
-const cameraHandler = require('./camera');
+const landingRoute = require('./landing');
+const cameraRoute = require('./camera');
+const pixels = require('./pixels');
 
 module.exports = {
-    landing: landingHandler,
-    camera: cameraHandler
+    getRoutes: {
+        landing: landingRoute,
+        camera: cameraRoute,
+        pixels: pixels.get
+    },
+    putRoutes: {
+        pixels: pixels.put
+    }
 };

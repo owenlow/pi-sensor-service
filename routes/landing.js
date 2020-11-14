@@ -8,7 +8,6 @@ const subtitle = 'Always good weather, guaranteed.';
 const navTabText = 'Home';
 const url = '/';
 const handler = function(request, response) {
-    console.log('landing requested');
     device.getAllReadings().then(allReadings => {
         response.send(pug.renderFile('./templates/landing.pug', {
             pageTitle: 'Weather Station',

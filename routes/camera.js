@@ -8,7 +8,6 @@ const navTabText = 'Camera';
 const url = '/camera';
 
 const handler = function (request, response) {
-    console.log('/camera requested');
     device.getImage().then(imageSrc => {
         response.send(pug.renderFile('./templates/camera.pug', {
             pageTitle: title,

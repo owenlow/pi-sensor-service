@@ -1,0 +1,62 @@
+doctype html
+html(lang="en")
+    include includes/head.pug
+
+    body
+        style.
+            .pixel {
+                height: 2rem;
+                width: 2rem;
+            }
+
+        div(class="container")
+            div(class="py-5 text-center")
+                h1 #{pageTitle}
+                p(class="lead") Set the display
+
+            include includes/pagnav.pug
+
+            div(class="py-5 text-center")
+                each hexColor, index in pixelsArray
+                    button(
+                        id=("pixel-" + index)
+                        class="pixel"
+                        data-color=hexColor
+                        onclick=("handlePixelClick(" + index + ")")
+                        style="background:" + hexColor)
+                    if (index + 1) % gridSize === 0
+                        br
+
+                button(onclick="clearDisplay()") Clear
+
+            footer(class="my-5 pt-5 text-muted text-center text-small")
+                p(class="mb-1") Created by owenlow
+
+        script.
+            const colors = ['#f8fcf8', '#f80000', '#00f800', '#0000f8', '#000000']
+
+            function handlePixelClick(index) {
+                const existingColor = $('#pixel-' + index).data('color');
+                const nextColor = colors[(colors.indexOf(existingColor) + 1) % colors.length];
+                $.ajax('/pixel?pixelIndex=' + index + '&color=' + encodeURIComponent(nextColor), {
+                    method: 'put'
+                }).done(() => {
+                    $('#pixel-' + index).css({
+                        backgroundColor: nextColor
+                    }).data({
+                        color: nextColor
+                    });
+                });
+            }
+
+            function clearDisplay() {
+                $.ajax('/pixel?clearDisplay=true', {
+                    method: 'put'
+                }).done(() => {
+                    $('.pixel').css({
+                        backgroundColor: '#000000'
+                    }).data({
+                        color: '#000000'
+                    })
+                });
+            }
