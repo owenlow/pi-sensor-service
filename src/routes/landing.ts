@@ -1,16 +1,16 @@
-const pug = require('pug');
+import {renderFile} from "pug";
+import {RouteDefinition} from "../types";
 
 const device = require('../device');
-
 
 const title = 'Weather station';
 const subtitle = 'Always good weather, guaranteed.';
 const navTabText = 'Home';
-const url = '/';
+
 const handler = function(request, response) {
     device.getAllReadings().then(allReadings => {
-        response.send(pug.renderFile('./templates/landing.pug', {
-            pageTitle: 'Weather Station',
+        response.send(renderFile('./src/templates/landing.pug', {
+            pageTitle: title,
             allReadings: Object.entries(allReadings),
             currentPage: 'landing'
         }));
@@ -20,7 +20,13 @@ const handler = function(request, response) {
     })
 };
 
-module.exports = {
-    url,
+const routes: RouteDefinition[] = [{
+    url: '/',
+    method: 'get',
     handler
+}];
+
+export {
+    routes
 };
+

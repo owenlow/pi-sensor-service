@@ -1,4 +1,6 @@
-const pug = require('pug');
+import {RouteDefinition} from "../types";
+import {renderFile} from "pug";
+
 const sense = require('sense-hat-led');
 
 const GRID_SIZE = 8;
@@ -27,7 +29,7 @@ const get = (request, response) => {
     sense.getPixels((error, displayData) => {
         const pixelsArray = displayData.map(rgbArrayToHexTripletString);
         console.error('pixels!!!', pixelsArray);
-        response.send(pug.renderFile('./templates/pixels.pug', {
+        response.send(renderFile('./src/templates/pixels.pug', {
             pageTitle: 'Display',
             pixelsArray,
             gridSize: GRID_SIZE,
@@ -60,13 +62,19 @@ const put = (request, response) => {
 
 };
 
-module.exports = {
-    get: {
+const routes: RouteDefinition[] = [
+    {
         url: '/pixels',
+        method: 'get',
         handler: get
     },
-    put: {
+    {
         url: '/pixel',
+        method: 'put',
         handler: put
     }
+];
+
+export {
+    routes
 };

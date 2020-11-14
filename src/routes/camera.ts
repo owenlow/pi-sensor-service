@@ -1,15 +1,15 @@
-const pug = require('pug');
+import {renderFile} from "pug";
+import {RouteDefinition} from "../types";
 
 const device = require('../device');
 
 const title = 'Live Cam';
 const subtitle = 'Check out whats happening!';
 const navTabText = 'Camera';
-const url = '/camera';
 
 const handler = function (request, response) {
     device.getImage().then(imageSrc => {
-        response.send(pug.renderFile('./templates/camera.pug', {
+        response.send(renderFile('./src/templates/camera.pug', {
             pageTitle: title,
             previewImageSrc: imageSrc,
             currentPage: 'camera'
@@ -20,7 +20,12 @@ const handler = function (request, response) {
     })
 };
 
-module.exports = {
-    url,
+const routes: RouteDefinition[] = [{
+    url: '/camera',
+    method: 'get',
     handler
+}];
+
+export {
+    routes
 };
