@@ -1,16 +1,15 @@
 import {renderFile} from "pug";
 import {RouteDefinition} from "../types";
-
-const device = require('../device');
+import {getImage} from "../device";
 
 const title = 'Live Cam';
 const subtitle = 'Check out whats happening!';
-const navTabText = 'Camera';
 
 const handler = function (request, response) {
-    device.getImage().then(imageSrc => {
+    getImage().then(imageSrc => {
         response.send(renderFile('./src/templates/camera.pug', {
             pageTitle: title,
+            pageSubtitle: subtitle,
             previewImageSrc: imageSrc,
             currentPage: 'camera'
         }));

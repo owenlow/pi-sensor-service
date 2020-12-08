@@ -1,16 +1,15 @@
 import {renderFile} from "pug";
+import {getAllReadings} from "../device";
 import {RouteDefinition} from "../types";
-
-const device = require('../device');
 
 const title = 'Weather station';
 const subtitle = 'Always good weather, guaranteed.';
-const navTabText = 'Home';
 
 const handler = function(request, response) {
-    device.getAllReadings().then(allReadings => {
+    getAllReadings().then(allReadings => {
         response.send(renderFile('./src/templates/landing.pug', {
             pageTitle: title,
+            pageSubtitle: subtitle,
             allReadings: Object.entries(allReadings),
             currentPage: 'landing'
         }));

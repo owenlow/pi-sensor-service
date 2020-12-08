@@ -1,7 +1,5 @@
-import * as express from 'express';
-
+import express, {Express} from "express";
 import {routes} from './routes';
-import {Express} from "express";
 
 const app: Express = express();
 

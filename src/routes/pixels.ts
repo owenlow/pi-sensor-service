@@ -1,7 +1,6 @@
-import {RouteDefinition} from "../types";
-import {renderFile} from "pug";
-
 const sense = require('sense-hat-led');
+import {renderFile} from "pug";
+import {RouteDefinition} from "../types";
 
 const GRID_SIZE = 8;
 
@@ -25,12 +24,15 @@ function indexTo2dCoords(index, gridSize) {
     return [x, y];
 }
 
-const get = (request, response) => {
+const title = "Display";
+const subtitle = "Set the display";
+
+const getPixelEditorPage = (request, response) => {
     sense.getPixels((error, displayData) => {
         const pixelsArray = displayData.map(rgbArrayToHexTripletString);
-        console.error('pixels!!!', pixelsArray);
         response.send(renderFile('./src/templates/pixels.pug', {
-            pageTitle: 'Display',
+            pageTitle: title,
+            pageSubtitle: subtitle,
             pixelsArray,
             gridSize: GRID_SIZE,
             currentPage: 'landing'
@@ -38,25 +40,21 @@ const get = (request, response) => {
     });
 };
 
-const put = (request, response) => {
-    console.log('pixel put', request.query);
+const setPixel = (request, response) => {
     const {pixelIndex, color = '#000000', clearDisplay} = request.query;
 
     if (!pixelIndex && !clearDisplay) {
         response.status(400).send();
     }
     if (pixelIndex) {
-        console.log('setting', pixelIndex);
         const [x, y] = indexTo2dCoords(pixelIndex, GRID_SIZE);
         const [r, g, b] = hexTripletStringToRgbArray(color);
-        console.log('placing pixel', x, y, r, g, b);
         sense.setPixel(x, y, r, g, b, (error, rgb) => {
             response.status(error ? 500 : 204).send();
         });
     }
     if (clearDisplay) {
-        console.log("clearing display");
-        sense.clear()
+        sense.clear();
         response.status(202).send();
     }
 
@@ -66,12 +64,12 @@ const routes: RouteDefinition[] = [
     {
         url: '/pixels',
         method: 'get',
-        handler: get
+        handler: getPixelEditorPage
     },
     {
         url: '/pixel',
         method: 'put',
-        handler: put
+        handler: setPixel
     }
 ];
 

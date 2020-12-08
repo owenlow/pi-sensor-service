@@ -1,4 +1,4 @@
-import * as PiCamera from 'pi-camera';
+import PiCamera from 'pi-camera';
 
 const piCamera = new PiCamera({
     mode: 'photo',
@@ -9,7 +9,10 @@ const piCamera = new PiCamera({
     rotation: 180
 });
 
-export const getImage = () =>
+/**
+ * Returns a promise that resolves with a data url of the image.
+ */
+export const getImage = (): Promise<String> =>
     new Promise((resolve, reject) => {
         piCamera.snapDataUrl()
             .then(result => {

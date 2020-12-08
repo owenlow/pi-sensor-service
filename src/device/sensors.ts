@@ -1,4 +1,4 @@
-const nodeImu = require('../../nodeimu');
+import nodeImu from 'nodeimu';
 
 const IMU = new nodeImu.IMU();
 
