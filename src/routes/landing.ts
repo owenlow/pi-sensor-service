@@ -17,16 +17,11 @@ const handler = function(request, response) {
     }).catch(reason => {
         console.error('Error getting landing page', reason)
         response.send('problem was had');
-    })
+    });
 };
 
-const routes: RouteDefinition[] = [{
+export const routes: RouteDefinition[] = [{
     url: '/',
     method: 'get',
     handler
 }];
-
-export {
-    routes
-};
-
