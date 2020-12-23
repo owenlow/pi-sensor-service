@@ -39,7 +39,7 @@ function setPixelHandler(request: Request, response: Response) {
     }
     if (pixelIndex) {
         const [x, y] = indexTo2dCoords(parseInt(pixelIndex as string), GRID_SIZE);
-        const [r, g, b] = hexTripletStringToRgbArray(color);
+        const [r, g, b] = hexTripletStringToRgbArray(color as string);
         sense.setPixel(x, y, r, g, b, (error, rgb) => {
             response.status(error ? 500 : 204).send();
         });

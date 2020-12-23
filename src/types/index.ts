@@ -1,15 +1,18 @@
+import { Request, Response } from "express";
+
+type RequestHandler = (request: Request<any>, response: Response) => void;
 
 export interface RouteDefinition {
-    method: 'get' | 'put';
+    method: "get" | "put";
     url: string;
-    handler: (Request, Response) => void;
+    handler: RequestHandler;
 }
 
 type Vector = {
     x: number;
     y: number;
     z: number;
-}
+};
 
 export type SensorData = {
     timestamp: Date;
@@ -23,4 +26,4 @@ export type SensorData = {
     pressure: number;
     humidity: number;
     tiltHeading: number;
-}
+};

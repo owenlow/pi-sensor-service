@@ -1,17 +1,42 @@
-import {getAllReadings} from "../device";
-import {RouteDefinition} from "../types";
+import { getDatapointsFromDataset } from "../store/sensordata";
+import { getAllReadings } from "../device";
+import { RouteDefinition } from "../types";
+import { handleError } from "./error";
+import { Request, Response } from "express";
 
-const handleGetSensors = function(request, response) {
-    getAllReadings().then(allReadings => {
-        response.send(allReadings);
-    }).catch(reason => {
-        console.error('Error getting landing page', reason)
-        response.send('problem was had');
-    });
+const handleGetSensors = function (request: Request, response: Response) {
+    getAllReadings()
+        .then((allReadings) => {
+            response.send(allReadings);
+        })
+        .catch((error) => handleError(response, error));
 };
 
-export const routes: RouteDefinition[] = [{
-    url: '/',
-    method: 'get',
-    handler: handleGetSensors
-}];
+interface GetSensorGraphParams {
+    sensorName: string;
+}
+
+const getSensorGraph = function (
+    request: Request<GetSensorGraphParams>,
+    response: Response
+) {
+    const dataset = request.params.sensorName;
+    getDatapointsFromDataset(dataset)
+        .then((datapoints) => {
+            response.send(datapoints);
+        })
+        .catch((error) => handleError(response, error));
+};
+
+export const routes: RouteDefinition[] = [
+    {
+        url: "/sensors",
+        method: "get",
+        handler: handleGetSensors
+    },
+    {
+        url: "/sensors/:sensorName",
+        method: "get",
+        handler: getSensorGraph
+    }
+];
