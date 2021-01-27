@@ -23,7 +23,10 @@ const getSensorGraph = function (
     const dataset = request.params.sensorName;
     getDatapointsFromDataset(dataset)
         .then((datapoints) => {
-            response.send(datapoints);
+            const sanitizedDataPoints = datapoints.map(
+                ({ value, timestamp }) => ({ value, timestamp })
+            );
+            response.send(sanitizedDataPoints);
         })
         .catch((error) => handleError(response, error));
 };

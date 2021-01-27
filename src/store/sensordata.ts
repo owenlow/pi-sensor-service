@@ -4,7 +4,7 @@ import NumberDataPointModel from "./models/number-datapoint";
 
 const HOSTNAME = "localhost";
 const PORT = 27018; // mongo default is 27107
-const DB_NAME = "foo";
+const DB_NAME = "sensordata";
 
 // replace with _.once if I add lodash
 (function () {
