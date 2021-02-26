@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 type RequestHandler = (request: Request<any>, response: Response) => void;
 
 export interface RouteDefinition {
-    method: "get" | "put";
+    method: "get" | "put" | "delete";
     url: string;
     handler: RequestHandler;
 }

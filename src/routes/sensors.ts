@@ -4,7 +4,7 @@ import { RouteDefinition } from "../types";
 import { handleError } from "./error";
 import { Request, Response } from "express";
 
-const handleGetSensors = function (request: Request, response: Response) {
+const handleGetSensors = (request: Request, response: Response) => {
     getAllReadings()
         .then((allReadings) => {
             response.send(allReadings);
@@ -16,10 +16,10 @@ interface GetSensorGraphParams {
     sensorName: string;
 }
 
-const getSensorGraph = function (
+const getSensorGraph = (
     request: Request<GetSensorGraphParams>,
     response: Response
-) {
+) => {
     const dataset = request.params.sensorName;
     getDatapointsFromDataset(dataset)
         .then((datapoints) => {

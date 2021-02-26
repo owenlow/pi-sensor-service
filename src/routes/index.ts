@@ -1,9 +1,6 @@
-import {RouteDefinition} from '../types';
+import { RouteDefinition } from "../types";
 
-import {routes as landingRoutes} from "./sensors";
-import {routes as displayRoutes} from "./pixels";
+import { routes as landingRoutes } from "./sensors";
+import { routes as displayRoutes } from "./display";
 
-export const routes: RouteDefinition[] = [
-        ...landingRoutes,
-        ...displayRoutes
-];
+export const routes: RouteDefinition[] = [...landingRoutes, ...displayRoutes];
