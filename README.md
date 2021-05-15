@@ -65,3 +65,5 @@ Returns an object containing an array `dataPoints`, which is an array of type `D
 ### Database setup
 
 I'm running this on a raspberry pi with Raspberry Pi OS (Debian Buster) so for using a supported version of MongoDB I am using the dated version provided by the repository (v2.4.14)
+
+**NOTE**: Be sure to check the mongo port used in the .env file, i've configured it to use a non-default value.

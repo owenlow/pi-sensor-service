@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 import NumberDataPointModel from "./models/number-datapoint";
 
-const HOSTNAME = "localhost";
-const PORT = 27018; // mongo default is 27107
-const DB_NAME = "sensordata";
+const HOSTNAME = process.env.MONGO_HOST; 
+const PORT = process.env.MONGO_PORT;
+const DB_NAME = process.env.MONGO_DB_NAME;
 
 // replace with _.once if I add lodash
 (function () {
