@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 
-type RequestHandler = (request: Request<any, any, any, any>, response: Response) => void;
+type RequestHandler = (
+    request: Request<any, any, any, any>,
+    response: Response
+) => void;
 
 export interface RouteDefinition {
     method: "get" | "put" | "delete";

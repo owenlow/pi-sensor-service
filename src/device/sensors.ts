@@ -1,5 +1,5 @@
-import nodeImu from 'nodeimu';
-import {SensorData} from "../types";
+import nodeImu from "nodeimu";
+import { SensorData } from "../types";
 
 const IMU = new nodeImu.IMU();
 

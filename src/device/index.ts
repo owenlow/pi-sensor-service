@@ -1,1 +1,1 @@
-export {getAllReadings} from './sensors';
+export { getAllReadings } from "./sensors";

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import NumberDataPointModel from "./models/number-datapoint";
 
-const HOSTNAME = process.env.MONGO_HOST; 
+const HOSTNAME = process.env.MONGO_HOST;
 const PORT = process.env.MONGO_PORT;
 const DB_NAME = process.env.MONGO_DB_NAME;
 
